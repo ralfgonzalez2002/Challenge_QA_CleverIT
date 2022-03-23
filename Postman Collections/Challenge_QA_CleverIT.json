@@ -121,7 +121,7 @@
                 "exec": [
                   "const response = pm.response.json();\r",
                   "\r",
-                  "const res_atribute = response.filter((item) => item.userId === 1)\r",
+                  "const res_atribute = response.filter((item) => item.username === \"Delphine\")\r",
                   "\r",
                   "const item = res_atribute[0]\r",
                   "\r",
@@ -129,20 +129,22 @@
                   "    pm.expect(item).to.be.an('object')\r",
                   "})\r",
                   "\r",
-                  "pm.test(\"Valida userIds de items = 1\", function(){\r",
-                  "    pm.expect(item.userId).to.eql(1)\r",
+                  "pm.test(\"Valida username de items = Delphine\", function(){\r",
+                  "    pm.expect(item.username).to.eql(\"Delphine\")\r",
                   "})\r",
                   "\r",
-                  "pm.test(\"Valida tipo de dato userId es number\", function(){\r",
-                  "    pm.expect(item.userId).to.be.a('number');\r",
+                  "pm.test(\"Valida tipo de dato username es number\", function(){\r",
+                  "    pm.expect(item.username).to.be.a('string');\r",
                   "});\r",
                   "\r",
                   "pm.test(\"Valida tipo de dato title es string\", function(){\r",
-                  "    pm.expect(item.title).to.be.a('string');\r",
+                  "    pm.expect(item.id).to.be.a('number');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Valida tipo de dato body es string\", function(){\r",
-                  "    pm.expect(item.body).to.be.a('string');\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Valida Content-Type en los Headers\", function() {\r",
+                  "\tpm.response.to.have.header('Content-Type');\r",
                   "});\r",
                   "\r",
                   "pm.test(\"Valida Código 200\", function() {\r",
@@ -171,21 +173,7 @@
                 }
               }
             },
-            "url": {
-              "raw": "{{url}}/posts?userId=1",
-              "host": [
-                "{{url}}"
-              ],
-              "path": [
-                "posts"
-              ],
-              "query": [
-                {
-                  "key": "userId",
-                  "value": "1"
-                }
-              ]
-            }
+            "url": "{{url}}/users"
           },
           "response": []
         }
