@@ -7,8 +7,101 @@
   "item": [
     {
       "name": "Posts Resource",
-      "item": [],
+      "item": [
+        {
+          "name": "Post a posts con variables diamicas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "f05a5c45-1a4c-4a69-aa77-0bdc5c03f16f",
+                "exec": [
+                  "const itemSchema = {\r",
+                  "    userId: '',\r",
+                  "    title: '',\r",
+                  "    body: ''\r",
+                  "}\r",
+                  "\r",
+                  "const body = JSON.parse(pm.request.body.raw);\r",
+                  "const sameSchema = JSON.stringify(Object.keys(itemSchema)) === JSON.stringify(Object.keys(body));\r",
+                  "console.log(sameSchema)\r",
+                  "\r",
+                  "pm.test(\"Valida que sea el mismo Schema\", function() {\r",
+                  "    pm.expect(true).to.be.eql(sameSchema);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Validando código de estado de Objeto Creado\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Valida tiempo de respuesta del Post\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "const hasId = Object.keys(response).includes('id')\r",
+                  "\r",
+                  "pm.test(\"Valida existe atributo id\", function(){\r",
+                  "    pm.expect(true).to.be.eql(hasId);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Valida campo id no vacio\", function() {\r",
+                  "    pm.expect(response.id.toString()).to.not.be.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Valida campo id existe\", function() {\r",
+                  "    pm.expect(response.id).to.be.exist\r",
+                  "})\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "ce472fa5-731f-4b57-baed-988b5eb996e6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n        \"userId\": 8,\r\n        \"title\": \"Prueba\",\r\n        \"body\": \"Probando metodo POST\"\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/posts?userId=9",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "posts"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "9"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
       "id": "f0a5eaa7-1daf-48e9-b574-dda3ac529f43"
+    },
+    {
+      "name": "New Folder",
+      "item": [],
+      "id": "c230c850-9bb7-49c3-b3ac-cf95030343b9"
     },
     {
       "name": "Get a pots con variable de entorno",
@@ -92,93 +185,6 @@
             {
               "key": "userId",
               "value": "1"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Post a posts con variables diamicas",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "f05a5c45-1a4c-4a69-aa77-0bdc5c03f16f",
-            "exec": [
-              "const itemSchema = {\r",
-              "    userId: '',\r",
-              "    title: '',\r",
-              "    body: ''\r",
-              "}\r",
-              "\r",
-              "const body = JSON.parse(pm.request.body.raw);\r",
-              "const sameSchema = JSON.stringify(Object.keys(itemSchema)) === JSON.stringify(Object.keys(body));\r",
-              "console.log(sameSchema)\r",
-              "\r",
-              "pm.test(\"Valida que sea el mismo Schema\", function() {\r",
-              "    pm.expect(true).to.be.eql(sameSchema);\r",
-              "})\r",
-              "\r",
-              "pm.test(\"Validando código de estado de Objeto Creado\", function () {\r",
-              "    pm.response.to.have.status(201);\r",
-              "});\r",
-              "\r",
-              "pm.test(\"Valida tiempo de respuesta del Post\", function () {\r",
-              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
-              "});\r",
-              "\r",
-              "const response = pm.response.json();\r",
-              "const hasId = Object.keys(response).includes('id')\r",
-              "\r",
-              "pm.test(\"Valida existe atributo id\", function(){\r",
-              "    pm.expect(true).to.be.eql(hasId);\r",
-              "});\r",
-              "\r",
-              "pm.test(\"Valida campo id no vacio\", function() {\r",
-              "    pm.expect(response.id.toString()).to.not.be.empty;\r",
-              "});\r",
-              "\r",
-              "pm.test(\"Valida campo id existe\", function() {\r",
-              "    pm.expect(response.id).to.be.exist\r",
-              "})\r",
-              "\r",
-              "\r",
-              "\r",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "id": "ce472fa5-731f-4b57-baed-988b5eb996e6",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n        \"userId\": 8,\r\n        \"title\": \"Prueba\",\r\n        \"body\": \"Probando metodo POST\"\r\n    }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{url}}/posts?userId=9",
-          "host": [
-            "{{url}}"
-          ],
-          "path": [
-            "posts"
-          ],
-          "query": [
-            {
-              "key": "userId",
-              "value": "9"
             }
           ]
         }
