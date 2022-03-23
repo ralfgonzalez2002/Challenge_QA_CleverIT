@@ -193,6 +193,11 @@
       "id": "c230c850-9bb7-49c3-b3ac-cf95030343b9"
     },
     {
+      "name": "New Folder",
+      "item": [],
+      "id": "9c7fdb6c-83ec-4d8f-a03d-d05de5f4d3a9"
+    },
+    {
       "name": "Get a comments",
       "event": [
         {
