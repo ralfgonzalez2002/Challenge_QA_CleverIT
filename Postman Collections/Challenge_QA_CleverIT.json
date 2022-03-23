@@ -193,7 +193,7 @@
       "id": "c230c850-9bb7-49c3-b3ac-cf95030343b9"
     },
     {
-      "name": "Put Modificacion de posts",
+      "name": "Get a comments",
       "event": [
         {
           "listen": "prerequest",
