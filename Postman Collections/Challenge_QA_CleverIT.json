@@ -100,96 +100,97 @@
     },
     {
       "name": "Users Resource",
-      "item": [],
-      "id": "c230c850-9bb7-49c3-b3ac-cf95030343b9"
-    },
-    {
-      "name": "Get a pots con variable de entorno",
-      "event": [
+      "item": [
         {
-          "listen": "prerequest",
-          "script": {
-            "id": "3657e437-9bdf-45c6-8a37-e33ce05096ed",
-            "exec": [
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        },
-        {
-          "listen": "test",
-          "script": {
-            "id": "3b0cda77-7e4c-407f-96bb-dd86598b3d70",
-            "exec": [
-              "const response = pm.response.json();\r",
-              "\r",
-              "const res_atribute = response.filter((item) => item.userId === 1)\r",
-              "\r",
-              "const item = res_atribute[0]\r",
-              "\r",
-              "pm.test(\"Valida que item sea objeto\", function(){\r",
-              "    pm.expect(item).to.be.an('object')\r",
-              "})\r",
-              "\r",
-              "pm.test(\"Valida userIds de items = 1\", function(){\r",
-              "    pm.expect(item.userId).to.eql(1)\r",
-              "})\r",
-              "\r",
-              "pm.test(\"Valida tipo de dato userId es number\", function(){\r",
-              "    pm.expect(item.userId).to.be.a('number');\r",
-              "});\r",
-              "\r",
-              "pm.test(\"Valida tipo de dato title es string\", function(){\r",
-              "    pm.expect(item.title).to.be.a('string');\r",
-              "});\r",
-              "\r",
-              "pm.test(\"Valida tipo de dato body es string\", function(){\r",
-              "    pm.expect(item.body).to.be.a('string');\r",
-              "});\r",
-              "\r",
-              "pm.test(\"Valida Código 200\", function() {\r",
-              "    pm.response.to.have.status(200);\r",
-              "});\r",
-              "\r",
-              ""
-            ],
-            "type": "text/javascript"
-          }
+          "name": "Get a users con variable de entorno",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "3657e437-9bdf-45c6-8a37-e33ce05096ed",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "3b0cda77-7e4c-407f-96bb-dd86598b3d70",
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "const res_atribute = response.filter((item) => item.userId === 1)\r",
+                  "\r",
+                  "const item = res_atribute[0]\r",
+                  "\r",
+                  "pm.test(\"Valida que item sea objeto\", function(){\r",
+                  "    pm.expect(item).to.be.an('object')\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Valida userIds de items = 1\", function(){\r",
+                  "    pm.expect(item.userId).to.eql(1)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Valida tipo de dato userId es number\", function(){\r",
+                  "    pm.expect(item.userId).to.be.a('number');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Valida tipo de dato title es string\", function(){\r",
+                  "    pm.expect(item.title).to.be.a('string');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Valida tipo de dato body es string\", function(){\r",
+                  "    pm.expect(item.body).to.be.a('string');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Valida Código 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "879b7ee7-ebb7-4a84-976b-14a2bf479711",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/posts?userId=1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "posts"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
         }
       ],
-      "id": "879b7ee7-ebb7-4a84-976b-14a2bf479711",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{url}}/posts?userId=1",
-          "host": [
-            "{{url}}"
-          ],
-          "path": [
-            "posts"
-          ],
-          "query": [
-            {
-              "key": "userId",
-              "value": "1"
-            }
-          ]
-        }
-      },
-      "response": []
+      "id": "c230c850-9bb7-49c3-b3ac-cf95030343b9"
     },
     {
       "name": "Put Modificacion de posts",
