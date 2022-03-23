@@ -1,286 +1,279 @@
 {
-  "info": {
-    "_postman_id": "9ea9c2f1-5c05-49ea-aecf-cbf5359c9868",
-    "name": "CleverIT Collection",
-    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Posts Resource",
-      "item": [
-        {
-          "name": "Post a posts con variables diamicas",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "f05a5c45-1a4c-4a69-aa77-0bdc5c03f16f",
-                "exec": [
-                  "const itemSchema = {\r",
-                  "    userId: '',\r",
-                  "    title: '',\r",
-                  "    body: ''\r",
-                  "}\r",
-                  "\r",
-                  "const body = JSON.parse(pm.request.body.raw);\r",
-                  "const sameSchema = JSON.stringify(Object.keys(itemSchema)) === JSON.stringify(Object.keys(body));\r",
-                  "console.log(sameSchema)\r",
-                  "\r",
-                  "pm.test(\"Valida que sea el mismo Schema\", function() {\r",
-                  "    pm.expect(true).to.be.eql(sameSchema);\r",
-                  "})\r",
-                  "\r",
-                  "pm.test(\"Validando código de estado de Objeto Creado\", function () {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida tiempo de respuesta del Post\", function () {\r",
-                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
-                  "});\r",
-                  "\r",
-                  "const response = pm.response.json();\r",
-                  "const hasId = Object.keys(response).includes('id')\r",
-                  "\r",
-                  "pm.test(\"Valida existe atributo id\", function(){\r",
-                  "    pm.expect(true).to.be.eql(hasId);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida campo id no vacio\", function() {\r",
-                  "    pm.expect(response.id.toString()).to.not.be.empty;\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida campo id existe\", function() {\r",
-                  "    pm.expect(response.id).to.be.exist\r",
-                  "})\r",
-                  "\r",
-                  "\r",
-                  "\r",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "id": "ce472fa5-731f-4b57-baed-988b5eb996e6",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n        \"userId\": 8,\r\n        \"title\": \"Prueba\",\r\n        \"body\": \"Probando metodo POST\"\r\n    }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{url}}/posts?userId=9",
-              "host": [
-                "{{url}}"
-              ],
-              "path": [
-                "posts"
-              ],
-              "query": [
-                {
-                  "key": "userId",
-                  "value": "9"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ],
-      "id": "f0a5eaa7-1daf-48e9-b574-dda3ac529f43"
-    },
-    {
-      "name": "Users Resource",
-      "item": [
-        {
-          "name": "Get a users con variable de entorno",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "id": "3657e437-9bdf-45c6-8a37-e33ce05096ed",
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "id": "3b0cda77-7e4c-407f-96bb-dd86598b3d70",
-                "exec": [
-                  "const response = pm.response.json();\r",
-                  "\r",
-                  "const res_atribute = response.filter((item) => item.username === \"Delphine\")\r",
-                  "\r",
-                  "const item = res_atribute[0]\r",
-                  "\r",
-                  "pm.test(\"Valida que item sea objeto\", function(){\r",
-                  "    pm.expect(item).to.be.an('object')\r",
-                  "})\r",
-                  "\r",
-                  "pm.test(\"Valida username de items = Delphine\", function(){\r",
-                  "    pm.expect(item.username).to.eql(\"Delphine\")\r",
-                  "})\r",
-                  "\r",
-                  "pm.test(\"Valida tipo de dato username es number\", function(){\r",
-                  "    pm.expect(item.username).to.be.a('string');\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida tipo de dato title es string\", function(){\r",
-                  "    pm.expect(item.id).to.be.a('number');\r",
-                  "});\r",
-                  "\r",
-                  "\r",
-                  "\r",
-                  "pm.test(\"Valida Content-Type en los Headers\", function() {\r",
-                  "\tpm.response.to.have.header('Content-Type');\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida Código 200\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "id": "879b7ee7-ebb7-4a84-976b-14a2bf479711",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": "{{url}}/users"
-          },
-          "response": []
-        }
-      ],
-      "id": "c230c850-9bb7-49c3-b3ac-cf95030343b9"
-    },
-    {
-      "name": "Comments Resource",
-      "item": [
-        {
-          "name": "Get a comments",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "id": "c74b01c1-45c8-4751-a5e7-dcb7a8a8b915",
-                "exec": [
-                  "var mistests = () => {\r",
-                  "    pm.test(\"Respuesta Ok\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Tiempo Ok\", function () {\r",
-                  "    pm.expect(pm.response.responseTime).to.be.below(685);\r",
-                  "});\r",
-                  "}\r",
-                  "\r",
-                  "pm.environment.set(\"MisTests\", mistests.toString());"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "id": "c9dc1df3-93bc-4aba-84b3-5512f37878b6",
-                "exec": [
-                  "eval(pm.environment.get(\"MisTests\"))();\r",
-                  "\r",
-                  "const response = pm.response.json();\r",
-                  "const emailReg =/^(([^<>()[\\]\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})$/i; \r",
-                  "\t\r",
-                  "const formatEmail = (currentValue) => currentValue.email.match(emailReg);\r",
-                  "\r",
-                  "\r",
-                  "pm.test(\"Valida formato del Email\", function() {\r",
-                  "\tpm.expect(response.every(formatEmail)).to.be.true;\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida que atributo id no sea String\", function() {\r",
-                  "    pm.expect(response.postId).to.not.be.a('String');\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida que exista atributo name\", function() {\r",
-                  "    pm.expect(response[0]).to.have.a.property(\"name\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida length mas 5 chars en title\", function() {\r",
-                  "    pm.expect(response[0].name).to.have.lengthOf.above(4);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Valida cantidad de chars en body\", function() {\r",
-                  "    pm.expect(response[0].body).to.have.lengthOf.within(5,150);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "id": "7dbebb1d-ba93-40cd-92e6-46028bd7ade5",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"userId\": 24,\r\n    \"title\": \"Prueba1\",\r\n    \"body\": \"Revisando resultado de la prueba1\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{url}}/comments",
-              "host": [
-                "{{url}}"
-              ],
-              "path": [
-                "comments"
-              ],
-              "query": [
-                {
-                  "key": "",
-                  "value": null,
-                  "type": "text",
-                  "disabled": true
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ],
-      "id": "9c7fdb6c-83ec-4d8f-a03d-d05de5f4d3a9"
-    }
-  ]
+	"info": {
+		"_postman_id": "9ea9c2f1-5c05-49ea-aecf-cbf5359c9868",
+		"name": "CleverIT Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Posts Resource",
+			"item": [
+				{
+					"name": "Post a posts con variables diamicas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const itemSchema = {\r",
+									"    userId: '',\r",
+									"    title: '',\r",
+									"    body: ''\r",
+									"}\r",
+									"\r",
+									"const body = JSON.parse(pm.request.body.raw);\r",
+									"const sameSchema = JSON.stringify(Object.keys(itemSchema)) === JSON.stringify(Object.keys(body));\r",
+									"console.log(sameSchema)\r",
+									"\r",
+									"pm.test(\"Valida que sea el mismo Schema\", function() {\r",
+									"    pm.expect(true).to.be.eql(sameSchema);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validando código de estado de Objeto Creado\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida tiempo de respuesta del Post\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"const hasId = Object.keys(response).includes('id')\r",
+									"\r",
+									"pm.test(\"Valida existe atributo id\", function(){\r",
+									"    pm.expect(true).to.be.eql(hasId);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida campo id no vacio\", function() {\r",
+									"    pm.expect(response.id.toString()).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida campo id existe\", function() {\r",
+									"    pm.expect(response.id).to.be.exist\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 8,\r\n        \"title\": \"Prueba\",\r\n        \"body\": \"Probando metodo POST\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts?userId=9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users Resource",
+			"item": [
+				{
+					"name": "Get a users con variable de entorno",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"const res_atribute = response.filter((item) => item.username === \"Delphine\")\r",
+									"\r",
+									"const item = res_atribute[0]\r",
+									"\r",
+									"pm.test(\"Valida que item sea objeto\", function(){\r",
+									"    pm.expect(item).to.be.an('object')\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valida username de items = Delphine\", function(){\r",
+									"    pm.expect(item.username).to.eql(\"Delphine\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valida tipo de dato username es number\", function(){\r",
+									"    pm.expect(item.username).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida tipo de dato title es string\", function(){\r",
+									"    pm.expect(item.id).to.be.a('number');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Valida Content-Type en los Headers\", function() {\r",
+									"\tpm.response.to.have.header('Content-Type');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida Código 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments Resource",
+			"item": [
+				{
+					"name": "Get a comments",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var mistests = () => {\r",
+									"    pm.test(\"Respuesta Ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tiempo Ok\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(685);\r",
+									"});\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"MisTests\", mistests.toString());"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"eval(pm.environment.get(\"MisTests\"))();\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"const emailReg =/^(([^<>()[\\]\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})$/i; \r",
+									"\t\r",
+									"const formatEmail = (currentValue) => currentValue.email.match(emailReg);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Valida formato del Email\", function() {\r",
+									"\tpm.expect(response.every(formatEmail)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida que atributo id no sea String\", function() {\r",
+									"    pm.expect(response.postId).to.not.be.a('String');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida que exista atributo name\", function() {\r",
+									"    pm.expect(response[0]).to.have.a.property(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida length mas 5 chars en title\", function() {\r",
+									"    pm.expect(response[0].name).to.have.lengthOf.above(4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valida cantidad de chars en body\", function() {\r",
+									"    pm.expect(response[0].body).to.have.lengthOf.within(5,150);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 24,\r\n    \"title\": \"Prueba1\",\r\n    \"body\": \"Revisando resultado de la prueba1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/comments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }
